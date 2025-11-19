@@ -103,5 +103,14 @@ class EmpleadoModel
         $consulta->bindParam(1, $this->codigo);
         $consulta->execute();
     }
+
+    // Método para obtener la descripción del departamento al que pertenece el empleado
+    public function getDepartamentoDescripcion() {
+        $consulta = $this->db->prepare('SELECT nombre FROM DEPARTAMENTO WHERE codigo = ?');
+        $consulta->bindParam(1,$this->cod_depto);
+        $consulta->execute();
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        return $resultado ? $resultado['nombre'] : null;
+    }
 }
 ?>

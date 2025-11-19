@@ -28,7 +28,7 @@ include_once("common/autentificacion.php"); ?>
                             <?php echo $item->getNombre() ?>
                         </td>
                         <td>
-                            <?php echo $item->getCod_depto() ?>
+                            <?php echo $item->getDepartamentoDescripcion() ?>
                         </td>
                         <td>
                             <a href="index.php?controlador=Empleado&accion=editar&codigo=<?php echo $item->getCodigo() ?>"

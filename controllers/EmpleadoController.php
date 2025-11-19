@@ -35,7 +35,11 @@ class EmpleadoController {
     // Método del controlador para crear un nuevo item
     public function nuevo() {
         require 'models/EmpleadoModel.php';
+        require 'models/DepartamentoModel.php';
+
         $item = new EmpleadoModel();
+        $deptos = new DepartamentoModel();
+        $lista_deptos = $deptos->getAll();
 
         $errores = array();
 
@@ -61,7 +65,7 @@ class EmpleadoController {
         }
 
         // Si no recibe el item para añadir, devuelve la vista para añadir un nuevo item
-        $this->view->show("EmpleadoNuevoView.php", array('errores' => $errores));
+        $this->view->show("empleadoNuevoView.php", array('lista_deptos' => $lista_deptos, 'errores' => $errores));
 
 
 
@@ -69,9 +73,12 @@ class EmpleadoController {
 
     // Método que procesa la petición para editar un item
     public function editar() {
-
         require 'models/EmpleadoModel.php';
+        require 'models/DepartamentoModel.php';
+
         $items = new EmpleadoModel();
+        $deptos = new DepartamentoModel();
+        $lista_deptos = $deptos->getAll();
 
         // Recuperar el item con el código recibido
         $item = $items->getById($_REQUEST['codigo']);
@@ -106,9 +113,7 @@ class EmpleadoController {
         }
 
         // Si no se ha pulsado el botón de actualizar se carga la vista para editar el item
-        $this->view->show("empleadoEditarView.php", array('item' => $item, 'errores' => $errores));
-
-
+        $this->view->show("empleadoEditarView.php", array('lista_deptos' => $lista_deptos, 'item' => $item, 'errores' => $errores));
 
     }
 

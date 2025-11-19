@@ -16,22 +16,30 @@ include_once("common/autentificacion.php"); ?>
 		<form action="index.php" method="post">
 			<input type="hidden" name="controlador" value="Empleado">
 			<input type="hidden" name="accion" value="editar">
-			
+
 			<div class="form-group">
-			<label for="codigo">Codigo</label>
-			<input class="form-control" type="text" name="codigo" value="<?php echo $item->getCodigo(); ?>" readonly>
+				<label for="codigo">Codigo</label>
+				<input class="form-control" type="text" name="codigo" value="<?php echo $item->getCodigo(); ?>" readonly>
 			</div>
 
 			<div class="form-group">
-			<?php echo isset($errores["nombre"]) ? "*" : "" ?>
-			<label for="nombre">Nombre</label>
-			<input class="form-control" type="text" name="nombre" value="<?php echo $item->getNombre(); ?>">
+				<?php echo isset($errores["nombre"]) ? "*" : "" ?>
+				<label for="nombre">Nombre</label>
+				<input class="form-control" type="text" name="nombre" value="<?php echo $item->getNombre(); ?>">
 			</div>
 
 			<div class="form-group">
-			<?php echo isset($errores["cod_depto"]) ? "*" : "" ?>
-			<label for="cod_depto">Departamento</label>
-			<input class="form-control" type="text" name="cod_depto" value="<?php echo $item->getCod_depto(); ?>">
+				<?php echo isset($errores["cod_depto"]) ? "*" : "" ?>
+				<label for="cod_depto">Departamento</label>
+				<select class="form-control" name="cod_depto">
+					<?php
+					// Recorremos la lista de departamentos para crear las opciones del select
+					foreach ($lista_deptos as $depto) {
+						$selected = $depto->getCodigo() == $item->getCod_depto() ? "selected" : "";
+						echo "<option value='" . $depto->getCodigo() . "' " . $selected . ">" . $depto->getNombre() . "</option>";
+					}
+					?>
+				</select>
 			</div>
 
 			<input class="btn btn-success btn-block" type="submit" name="submit" value="Aceptar">
